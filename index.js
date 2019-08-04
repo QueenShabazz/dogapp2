@@ -12,32 +12,28 @@ function getImage(breed){
 //function that displays images
 function displayResults(responseJson){
     //replace existing images with new ones
-    $('.results-img').empty();
     //if there is a breed 
-   
-        if (responseJson.status==="error"){
+    for (let i = 0; i < responseJson.message.length; i++){   
+        if (responseJson.status === "error"){
             alert("Invalid breed name")
         } else {  
-            for (let i = 0; i < responseJson.message.length; i++ ){   
-                let pic = responseJson.message[i];
-                $('.results-img').append(`<img src=${pic}>`);
-            }
-    }
+                let pic = responseJson.message[Math.floor(Math.random() * responseJson.message.length)];
+                $('.results-img').replaceWith(`<img src=${pic} class="results-img">`);
+        }
     $('.results').removeClass('hidden');
-}
+}}
 
 //submit listener
-function manipForm(){
-    $('form').submit(event =>{
+function manipForm() {
+    $('form').submit(event => {
         event.preventDefault();
         let input = $('input').val();
         getImage(input);
-    })
+    });
 }
 
-$(function(){
+$(function() {
     console.log("App Initiatiated");
     manipForm();
 });
 
-//   
